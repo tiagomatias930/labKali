@@ -44,7 +44,7 @@ RUN apt-get update && \
         ruby \
         ruby-dev \
         golang \
-        openjdk-17-jre-headless \
+        openjdk-21-jre \
         nodejs \
         npm \
         iproute2 \
@@ -116,12 +116,12 @@ RUN apt-get update && \
     pipx ensurepath && \
     wordlists_dir=/usr/share/wordlists && \
     if [ -f "${wordlists_dir}/rockyou.txt.gz" ]; then gzip -dk "${wordlists_dir}/rockyou.txt.gz"; fi && \
-    groupadd --gid "${USER_GID}" "${USERNAME}" 2>/dev/null || true && \
-    useradd --uid "${USER_UID}" --gid "${USER_GID}" -m -s /bin/zsh "${USERNAME}" && \
+    if ! getent group "${USER_GID}" >/dev/null; then groupadd --gid "${USER_GID}" "${USERNAME}"; fi && \
+    if ! id -u "${USERNAME}" >/dev/null 2>&1; then useradd --uid "${USER_UID}" --gid "${USER_GID}" -m -s /bin/zsh "${USERNAME}"; fi && \
     echo "${USERNAME} ALL=(ALL) NOPASSWD:ALL" > "/etc/sudoers.d/${USERNAME}" && \
     chmod 0440 "/etc/sudoers.d/${USERNAME}" && \
     mkdir -p /workspace /tools /loot && \
-    chown -R "${USERNAME}:${USERNAME}" /workspace /tools /loot && \
+    chown -R "${USER_UID}:${USER_GID}" /workspace /tools /loot && \
     apt-get autoremove -y && \
     apt-get clean && \
     rm -rf /var/lib/apt/lists/*

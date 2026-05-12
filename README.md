@@ -134,7 +134,7 @@ Usa `docker system prune -a` com cuidado, porque remove imagens nao usadas.
 Principais grupos instalados:
 
 - Base: `curl`, `wget`, `git`, `zsh`, `tmux`, `vim`, `jq`, `yq`, `unzip`, `zip`
-- Desenvolvimento: `python3`, `pipx`, `ruby`, `golang`, `nodejs`, `npm`, `openjdk-17`
+- Desenvolvimento: `python3`, `pipx`, `ruby`, `golang`, `nodejs`, `npm`, `openjdk-21`
 - Rede: `iproute2`, `ping`, `dnsutils`, `traceroute`, `whois`, `netcat`, `socat`
 - Captura/analise: `tcpdump`, `tshark`, `wireshark-common`
 - Recon/enumeracao: `nmap`, `masscan`, `arp-scan`, `dnsrecon`, `amass`, `sublist3r`
