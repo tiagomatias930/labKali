@@ -1,0 +1,20 @@
+services:
+  kali-blackteam:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: kali-blackteam:latest
+    container_name: kali-blackteam
+    hostname: kali-blackteam
+    stdin_open: true
+    tty: true
+    working_dir: /workspace
+    volumes:
+      - ./workspace:/workspace
+      - ./loot:/loot
+    cap_add:
+      - NET_ADMIN
+      - NET_RAW
+    security_opt:
+      - no-new-privileges:false
+    command: /bin/zsh
